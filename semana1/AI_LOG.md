@@ -1,0 +1,7 @@
+# Bitácora de Uso de IA - Semana 1
+
+## Entrada 1: 2026-07-13
+* **Prompt enviado a la IA:** "Ayúdame a modelar una estructura para lecturas de sensores usando buenas prácticas de Python idiomático. Necesito representar tipos de sensores, estados de alerta, asegurar inmutabilidad y definir 5 funciones puras de procesamiento, además de un Protocol."
+* **Código generado por la IA:** Propuso el uso de `Enum` para los tipos y estados, una `@dataclass(frozen=True)` para la lectura, y funciones que utilizan `dataclasses.replace` para mantener la pureza, junto con `typing.Protocol`.
+* **Decisión de diseño y justificación:** Acepté el diseño completo porque soluciona de forma elegante el problema de la mutabilidad que sufríamos en sistemas embebidos convencionales. Mantener la lectura `frozen` previene efectos secundarios indeseados en canalizaciones de datos. El uso de `Protocol` permite la inyección de dependencias modular que se requerirá más adelante en la semana para SOLID sin la rigidez de la herencia múltiple de C++.
+* **Detalle personal:** Aunque se que comento que esto solo es para practicar lo guardo aqui para tener a la mano lo que estudie y si lee esto y le es posible, le agredeceria que tambien me pudiera dar una retroalimentacion de este ejercicio de practica.
