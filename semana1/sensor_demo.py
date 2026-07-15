@@ -100,3 +100,4 @@ def to_telemetry_string(reading: Reading) -> str:
         f"TYPE:{reading.sensor_type.name} | VAL:{reading.value:.2f} | "
         f"STATUS:{reading.status.name}"
     )
+
