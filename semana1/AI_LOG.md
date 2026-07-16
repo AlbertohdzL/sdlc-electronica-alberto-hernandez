@@ -10,3 +10,13 @@
 * **Prompt enviado a la IA:** "Con las ideas que te adjunte genera el código para fsm_demo.py y test_fsm.py basandote en ellas. La máquina debe ser orientada a objetos, usar un método explícito llamado transition(), ciclar entre RED, GREEN y YELLOW, y contar las vueltas completas. Además, incluye los 4 tests requeridos."
 * **Código generado por la IA:** Diseñó la FSM usando una clase con propiedades de solo lectura para encapsular el estado y el contador, protegiendo las variables internas, junto con funciones de test independientes basadas en aserciones de pytest.
 * **Decisión de diseño y justificación:** Se eliminó la idea de abstracción de las propiedades protegidas para evitar sobrecomplicar el diseño de software en esta etapa. En Python, el uso de atributos públicos es idiomático si no se requiere validación extra en la lectura. Esto mantiene el código limpio, plano y 100% defendible ante el coordinador, conservando la eficiencia de la tabla de búsqueda (diccionario) para las transiciones.
+
+## Entrada 3: 2026-07-15
+* **Prompt enviado a la IA:** "Ayúdame a optimizar el archivo solid_srp_ocp_lsp.py y su test correspondiente. Necesito que revises los ejemplos claros de 'Mal' y 'Bien' para los principios SRP, OCP y LSP aplicados al dominio de sensores, con 2 tests unitarios por principio."
+* **Código generado por la IA:** Diseñó estructuras que separan el almacenamiento de la analítica (SRP), clases abstractas extendidas por polimorfismo para las alertas (OCP) y subclases que respetan los tipos de retorno numéricos sin romper el contrato del padre (LSP).
+* **Decisión de diseño y justificación:** Se optó por el polimorfismo clásico de Python para OCP y LSP. Esto elimina la necesidad de modificar lógica existente cuando ingresa nuevo hardware al sistema, mitigando los riesgos de regresión comunes en el firmware tradicional.
+
+## Entrada 4 : 2026-07-16
+* **Prompt enviado a la IA:** "Revisa y optimisa el archivo solid_isp_dip.py y test_solid_isp_dip.py enfocado en los principios ISP y DIP usando typing.Protocol para inyección de dependencias en instrumentación."
+* **Código generado por la IA:** Creó interfaces segregadas (ReaderProtocol y WriterProtocol) para cumplir con ISP, y un DataProcessor de alto nivel que recibe la interfaz por el constructor para cumplir con DIP.
+* **Decisión de diseño y justificación:** El uso de `typing.Protocol` permite implementar desacoplamiento por Duck Typing estático. Al inyectar el protocolo en el constructor de la clase de alto nivel, el código queda 100% aislado del driver físico subyacente, facilitando el intercambio de hardware o la creación de Mocks en las pruebas sin alterar la lógica de negocio.
