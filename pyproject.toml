@@ -1,0 +1,46 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-v --cov=app --cov-report=term-missing --cov-fail-under=80"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "venv",
+    "semana0",
+    "semana1",
+    "semana2",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "SIM", "DTZ"]
+ignore = ["E501"]
+
+[tool.ruff.lint.flake8-bugbear]
+# Permite la inyección de dependencias de FastAPI sin marcar el error B008
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.Query",
+    "fastapi.Path",
+    "fastapi.Body",
+    "fastapi.Header",
+]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+explicit_package_bases = true
+exclude = [
+    "semana0",
+    "semana1",
+    "semana2",
+]
