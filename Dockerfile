@@ -1,23 +1,40 @@
-# 1. Imagen base liviana oficial de Python
-FROM python:3.12-slim
+# ---------------------------------------------------
+# ETAPA 1: Builder (Compilación e instalación)
+# ---------------------------------------------------
+FROM python:3.12-slim AS builder
 
-# 2. Evita la creación de archivos .pyc y fuerza la salida de logs en tiempo real
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-# 3. Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# 4. Copiar e instalar dependencias PRIMERO para aprovechar la caché de capas de Docker
+# Instalar herramientas de compilación temporales
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear entorno virtual aislado
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 5. Copiar el código de la aplicación
-COPY . .
+# ---------------------------------------------------
+# ETAPA 2: Runner (Imagen final limpia de producción)
+# ---------------------------------------------------
+FROM python:3.12-slim AS runner
 
-# 6. Exponer el puerto donde corre la API
-EXPOSE 8000
+WORKDIR /app
 
-# 7. Comando de arranque usando la sintaxis de lista de ejecución (exec form)
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Copiar el entorno virtual ya compilado desde la etapa builder
+COPY --from=builder /opt/venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Copiar el código fuente de la aplicación
+COPY app/ ./app
+
+# Seguridad: Usuario no-root
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+EXPOSE 10000
+
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
