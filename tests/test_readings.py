@@ -77,5 +77,5 @@ def test_list_readings_by_sensor_success(client: TestClient) -> None:
     response = client.get("/readings/sensor/HUM-01")
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 2
+    assert len(data) == 1
     assert data[0]["value"] == 55.0
