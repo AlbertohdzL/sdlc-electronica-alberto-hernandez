@@ -30,3 +30,7 @@ app.include_router(reading_router)
 def health_check() -> dict[str, str]:
     """Endpoint de verificación de salud del servicio."""
     return {"status": "ok", "service": "SensorHub API"}
+@app.get("/", tags=["Root"])
+def read_root() -> dict[str, str]:
+    """Endpoint raíz para verificación de salud de Render."""
+    return {"message": "Bienvenido a SensorHub API", "docs": "/docs"}
