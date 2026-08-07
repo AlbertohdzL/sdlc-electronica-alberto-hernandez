@@ -1,5 +1,5 @@
 # sdlc-electronica-alberto-hernandez
-## 🚀 Despliegue y Producción
+## Despliegue y Producción
 
 * **API en Producción:** [https://sensorhub-api-mqu1.onrender.com](https://sensorhub-api-mqu1.onrender.com)
 * **Documentación Interactiva (Swagger):** [https://sensorhub-api-mqu1.onrender.com/docs](https://sensorhub-api-mqu1.onrender.com/docs)
