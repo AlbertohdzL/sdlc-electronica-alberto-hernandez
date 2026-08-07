@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 8000
 
 # 7. Comando de arranque usando la sintaxis de lista de ejecución (exec form)
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c","uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
