@@ -28,3 +28,8 @@
 * **Prompt enviado a la IA:** "Dame ideas para crear la suite de pruebas de integración con TestClient de FastAPI y un fixture de pytest para SQLite en memoria."
 * **Código generado por la IA:** Sugirió pruebas reutilizando la base de datos `sensorhub.db` física en disco.
 * **Decisión de diseño y justificación:** Rechacé el uso de la BD en disco en las pruebas para evitar la contaminación de datos entre ejecuciones. Implementé un fixture en `tests/conftest.py` con `sqlite:///:memory:` y `StaticPool`, anulando la dependencia `get_db` con `app.dependency_overrides`. Logramos una cobertura del 91% en la carpeta `app/`.
+
+
+## Semana 5 
+Dato importante: Para que funcione bien el pytest y se pueda apreciar de manera correcta el resultado utilice el siguiente comando:
+python3 -m pytest semana5/ -o addopts="" --cov=semana5 --cov-fail-under=80
