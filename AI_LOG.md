@@ -40,3 +40,11 @@ python3 -m pytest semana5/ -o addopts="" --cov=semana5 --cov-fail-under=80
 **Decisión:** **Aceptado con modificaciones.**
 - *Aceptado:* La lógica de conversión y la validación de la excepción `ValueError`.
 - *Modificado:* Se ajustó la firma del test para coincidir con las convenciones de nombres del proyecto (`test_fahrenheit_to_celsius_valid`).
+
+## Semana 5 · Entrada 2
+**Herramienta usada:** Copilot Chat
+**Prompt:** "Revisa esta clase como un ingeniero senior en un code review. Busca violaciones de SOLID, casos borde sin manejar, riesgos de seguridad y problemas de rendimiento."
+**Resultado de la IA:** Identificó 4 hallazgos sobre validación de IDs, excepciones y paginación.
+**Decisión:** **Aceptado parcialmente.**
+- *Aceptado:* Corrección de casos borde en IDs y límites en paginación.
+- *Rechazado:* La propuesta de mover lógica de negocio a los modelos ORM de SQLAlchemy por violar la separación de capas de la arquitectura del proyecto.
