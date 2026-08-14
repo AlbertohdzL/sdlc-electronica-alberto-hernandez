@@ -48,3 +48,10 @@ python3 -m pytest semana5/ -o addopts="" --cov=semana5 --cov-fail-under=80
 **Decisión:** **Aceptado parcialmente.**
 - *Aceptado:* Corrección de casos borde en IDs y límites en paginación.
 - *Rechazado:* La propuesta de mover lógica de negocio a los modelos ORM de SQLAlchemy por violar la separación de capas de la arquitectura del proyecto.
+
+## Semana 5 · Entrada 3
+**Herramienta usada:** Copilot Chat
+**Prompt:** "Proponme ideas para diseñar un módulo de detección de anomalías en Python aplicando el principio Open/Closed (OCP) mediante el patrón Strategy con AlertStrategy (ABC) y dos implementaciones (ConsoleAlertStrategy, InMemoryAlertStrategy), testeable bajo TDD estricto."
+**Resultado de la IA:** Propuso la clase base abstracta, las implementaciones y el detector inyectable.
+**Decisión:** **Aceptado.**
+- *Justificación:* El diseño cumple fielmente con OCP y DIP. Permite incorporar en el futuro canales como Webhooks o MQTT sin modificar la lógica interna de `AnomalyDetector`.
