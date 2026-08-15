@@ -28,3 +28,30 @@
 * **Prompt enviado a la IA:** "Dame ideas para crear la suite de pruebas de integración con TestClient de FastAPI y un fixture de pytest para SQLite en memoria."
 * **Código generado por la IA:** Sugirió pruebas reutilizando la base de datos `sensorhub.db` física en disco.
 * **Decisión de diseño y justificación:** Rechacé el uso de la BD en disco en las pruebas para evitar la contaminación de datos entre ejecuciones. Implementé un fixture en `tests/conftest.py` con `sqlite:///:memory:` y `StaticPool`, anulando la dependencia `get_db` con `app.dependency_overrides`. Logramos una cobertura del 91% en la carpeta `app/`.
+
+
+## Semana 5 
+Dato importante: Para que funcione bien el pytest y se pueda apreciar de manera correcta el resultado utilice el siguiente comando:
+python3 -m pytest semana5/ -o addopts="" --cov=semana5 --cov-fail-under=80
+## Semana 5 · Entrada 1
+**Herramienta usada:** Copilot Chat / Aider
+**Prompt:** "Genera la función fahrenheit_to_celsius(f: float) -> float validando el cero absoluto físico (-459.67 °F) y redondeando a 2 decimales, junto con sus tests pytest."
+**Resultado de la IA:** Propuso la implementación matemática y 4 escenarios de prueba.
+**Decisión:** **Aceptado con modificaciones.**
+- *Aceptado:* La lógica de conversión y la validación de la excepción `ValueError`.
+- *Modificado:* Se ajustó la firma del test para coincidir con las convenciones de nombres del proyecto (`test_fahrenheit_to_celsius_valid`).
+
+## Semana 5 · Entrada 2
+**Herramienta usada:** Copilot Chat
+**Prompt:** "Revisa esta clase como un ingeniero senior en un code review. Busca violaciones de SOLID, casos borde sin manejar, riesgos de seguridad y problemas de rendimiento."
+**Resultado de la IA:** Identificó 4 hallazgos sobre validación de IDs, excepciones y paginación.
+**Decisión:** **Aceptado parcialmente.**
+- *Aceptado:* Corrección de casos borde en IDs y límites en paginación.
+- *Rechazado:* La propuesta de mover lógica de negocio a los modelos ORM de SQLAlchemy por violar la separación de capas de la arquitectura del proyecto.
+
+## Semana 5 · Entrada 3
+**Herramienta usada:** Copilot Chat
+**Prompt:** "Proponme ideas para diseñar un módulo de detección de anomalías en Python aplicando el principio Open/Closed (OCP) mediante el patrón Strategy con AlertStrategy (ABC) y dos implementaciones (ConsoleAlertStrategy, InMemoryAlertStrategy), testeable bajo TDD estricto."
+**Resultado de la IA:** Propuso la clase base abstracta, las implementaciones y el detector inyectable.
+**Decisión:** **Aceptado.**
+- *Justificación:* El diseño cumple fielmente con OCP y DIP. Permite incorporar en el futuro canales como Webhooks o MQTT sin modificar la lógica interna de `AnomalyDetector`.
