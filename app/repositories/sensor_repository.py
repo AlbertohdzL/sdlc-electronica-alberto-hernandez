@@ -1,7 +1,8 @@
 """Repositorio para el acceso a datos del recurso Sensor."""
 
-from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import Session
+
 from app.models.sensor import SensorModel
 from app.schemas.sensor import SensorCreate, SensorUpdate
 
@@ -16,6 +17,7 @@ class SensorRepository:
         """Persiste un nuevo sensor en la base de datos."""
         db_sensor = SensorModel(
             sensor_id=sensor_in.sensor_id,
+            name=sensor_in.name,
             location=sensor_in.location,
             sensor_type=sensor_in.sensor_type,
             alert_threshold=sensor_in.alert_threshold,
@@ -51,3 +53,10 @@ class SensorRepository:
         self.db.commit()
         self.db.refresh(db_sensor)
         return db_sensor
+
+    def deactivate_sensor(self, sensor_id: str) -> SensorModel | None:
+        """Busca y desactiva un sensor por su sensor_id."""
+        sensor = self.get_by_sensor_id(sensor_id)
+        if sensor is None:
+            return None
+        return self.deactivate(sensor)
